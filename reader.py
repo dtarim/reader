@@ -1,7 +1,7 @@
 import socket
 
 def main():
-    client_address = ('localhost', 12345)
+    client_address = ('localhost', 30000)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(client_address)
 
