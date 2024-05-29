@@ -1,0 +1,25 @@
+name: unit_test
+
+on:
+    workflow_dispatch:
+    push:
+      branches: [ "development", "master" ]
+    pull_request:
+      branches: [ "development", "master" ]
+
+jobs:
+    run_unit_test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.8'
+            
+        - name: Run tests
+          run: |
+            python -m unittest discover -s . -p 'test_reader.py'
+  
