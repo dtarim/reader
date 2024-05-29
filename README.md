@@ -1,0 +1,1 @@
+This is reader project that reads data from sender project.
