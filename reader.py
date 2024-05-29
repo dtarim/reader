@@ -1,16 +1,26 @@
 import socket
 
-def main():
-    client_address = ('localhost', 30000)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(client_address)
+class Reader:
+    def __init__(self, address):
+        self.client_address = address
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.bind(self.client_address)
 
+    def receive_time(self):
+        data, address = self.sock.recvfrom(4096)
+        return data.decode('utf-8')
+
+    def close(self):
+        self.sock.close()
+
+def main():
+    reader = Reader(('localhost', 12345))
     try:
         while True:
-            data, address = sock.recvfrom(4096)
-            print(f"Received: {data.decode('utf-8')}")
+            received_time = reader.receive_time()
+            print(f"Received: {received_time}")
     finally:
-        sock.close()
+        reader.close()
 
 if __name__ == "__main__":
     main()
